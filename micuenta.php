@@ -1,60 +1,4 @@
-<?php
-	if(isset($_POST['submit'])){
-		#var_dump($_POST);
-		$json_registro = json_encode($_POST);
-		#var_dump($json_registro);
-		$handler = fopen ("usuarios.json", "w+");
-		fwrite ($handler, $json_usuarios);
-		fclose ($handler);
 
-
-	}
-
-	function esUnaImagen($ext) {
-		$ext = strtolower($ext);
-		if ($ext == 'jpg' || $ext == 'png' || $ext == 'gif'|| $ext == 'jpeg') {
-			return TRUE;
-		}
-		return FALSE;
-	}
-
-	function tienePesoValido($size) {
-
-		$pesoMaximo = 900000;
-		// 90 KB
-
-		if ($size > $pesoMaximo) {
-			return FALSE;
-		}
-		return TRUE;
-	}
-
-	if (!empty($_POST)) {
-
-		$ext = pathinfo($_FILES['archivo']['name'], PATHINFO_EXTENSION);
-
-		$errores = $message = '';
-
-		if (!esUnaImagen($ext) || !tienePesoValido($_FILES['archivo']['size'])) {
-			$errores = 'La imagen es muy pesada o no tiene un formato valido';
-		} else {
-
-			$randomHash = md5(microtime().'foto');
-
-			$archivo = dirname(__FILE__) . '/Foto_Perfil/' . $randomHash . '.' . $ext;
-			$upload = move_uploaded_file($_FILES['archivo']['tmp_name'], $archivo);
-
-			if ($upload) {
-				$message = "Subio OK!";
-				$img = $archivo;
-			} else {
-				$errores = "no subio";
-			}
-		}
-
-	}
-
-	?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,13 +92,71 @@
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
-          <form?
 
-            Avatar:<input type="file" name="imgPerfil">
-          </form>
-          <h6>Subir una foto distinta...</h6>
+						<?php
+						function esUnaImagen($ext) {
+							$ext = strtolower($ext);
+							if ($ext == 'jpg' || $ext == 'png' || $ext == 'gif'|| $ext == 'jpeg') {
+								return TRUE;
+							}
+							return FALSE;
+						}
 
-          <input type="file" class="form-control">
+						function tienePesoValido($size) {
+
+							$pesoMaximo = 90000;
+							// 90 KB
+
+							if ($size > $pesoMaximo) {
+								return FALSE;
+							}
+							return TRUE;
+						}
+
+						if (!empty($_POST)) {
+
+							$ext = pathinfo($_FILES['archivo']['name'], PATHINFO_EXTENSION);
+
+							$errores = $message = '';
+
+							if (!esUnaImagen($ext) || !tienePesoValido($_FILES['archivo']['size'])) {
+								$errores = 'La imagen es muy pesada o no tiene un formato valido';
+							} else {
+
+								$randomHash = md5(microtime().'foto');
+
+								$archivo = dirname(__FILE__) . '/img/' . $randomHash . '.' . $ext;
+								$upload = move_uploaded_file($_FILES['archivo']['tmp_name'], $archivo);
+
+								if ($upload) {
+									$message = "Subio OK!";
+									$img = $archivo;
+								} else {
+									$errores = "no subio";
+								}
+							}
+
+						}
+						?>
+						<body>
+							<?php if(!empty($errores) || empty($_POST)) { ?>
+							<form method="post"enctype="multipart/form-data">
+
+								<h2><?php if(!empty($errores)) { echo $errores;} ?></h2>
+
+
+								<label>Imagen de perfil:</label>
+								<br>
+								<br>
+								<input type="file" name="archivo">
+								<br>
+								<br>
+								<input type="submit" name="enviar" value="subir archivo">
+							</form>
+							<?php } else { ?>
+								Se subio la imagen ok
+							<?php } ?>
+
         </div>
       </div>
 

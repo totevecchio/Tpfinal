@@ -7,9 +7,9 @@
 		{
 			$errores[] = "Falta el nombre";
 		}
-		if (trim($miUsuario["apellido"]) == "")
+		if (trim($miUsuario["usuario"]) == "")
 		{
-			$errores[] = "Falta el apellido";
+			$errores[] = "Falta el usuario";
 		}
 		if (trim($miUsuario["pass"]) == "")
 		{
@@ -69,10 +69,10 @@
 	{
 		$usuario = [
 			"nombre" => $miUsuario["nombre"],
-			"apellido" => $miUsuario["apellido"],
+			"usuario" => $miUsuario["usuario"],
 			"mail" => $miUsuario["mail"],
-			"password" => password_hash($miUsuario["pass"], PASSWORD_DEFAULT),
-			"sexo" => $miUsuario["sexo"],
+			"password" =>$miUsuario["pass"],
+			"password2"=>$miUsuario["cpass"],
 			"id" => traerNuevoId()
 		];
 

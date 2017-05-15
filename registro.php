@@ -1,16 +1,16 @@
 <?php
 	require_once("funciones.php");
 	$pNombre = "";
-	$pApellido = "";
+	$pUsuario = "";
 	$pMail = "";
 	$pcontrasena="";
 	$conContrasena = "";
-	
+
 
 	if ($_POST)
 	{
 		$pNombre = $_POST["nombre"];
-		$pApellido = $_POST["apellido"];
+		$pUsuario = $_POST["usuario"];
 		$pMail = $_POST["mail"];
 		$pcontrasena = $_POST["pass"];
 		$conContrasena = $_POST["cpass"];
@@ -83,22 +83,12 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li>
-                    <a href="services.php">Servicios</a>
-                </li>
-                <li>
                     <a href="iniciar.php">Iniciar Sesion</a>
                 </li>
                 <li>
                     <a href="registro.php">Registrarse</a>
                 </li>
-                <li>
-                    <a href="contact.php">Contacto</a>
-                </li>
-
-                <li>
-                    <a href="micuenta.php">Mi Cuenta</a>
-                </li>
-
+              
                       </ul>
                     </li>
                 </ul>
@@ -169,14 +159,13 @@
 											</div>
 											<div>
 
-												<input id="apellido" class="form-control" placeholder="Apellido" type="text" name="apellido" value="<?php echo $pApellido; ?>"></input>
-											</div>
-											<div>
-
 												<input id="mail" class="form-control" placeholder="Email" type="text" name="mail" value="<?php echo $pMail; ?>"></input>
 											</div>
 											<div>
+											<div>
 
+												<input id="usuario" class="form-control" placeholder="Usuario" type="text" name="usuario" value="<?php echo $pUsuario; ?>"></input>
+											</div>
 												<input id="pass" class="form-control" placeholder="Contraseña" type="password" name="pass"  value= "<?php echo $pcontrasena; ?>"></input>
 											</div>
 											<div>

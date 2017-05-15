@@ -1,32 +1,3 @@
-<?php
-
-session_start();
-
-if (isset($_POST['user']) && isset($_POST['pass'])) {
-	$usuarios = file_get_contents("usuarios.json");
-	$usuariosArray = explode(PHP_EOL, $usuarios);
-	array_pop($usuariosArray);
-
-	foreach ($usuariosArray as $key => $usuario) {
-	    $usuarioArray = json_decode($usuario, true);
-	    if ($_POST['user'] == $usuarioArray["usuario"]) {
-				$userok = $_POST['user'];
-				$hash = $usuarioArray["password"];
-	      if (password_verify($_POST['pass'], $hash)) {
-					$logueado = 'true';
-					$_SESSION["usuario"] = $usuarioArray["usuario"];
-					$_SESSION["nombre"] = $usuarioArray["nombre"];
-		//			$expira = time()+9993600;
-		//			setcookie("usuario", $usuarioArray["usuario"], $expira);
-		//			setcookie("nombre", $usuarioArray["nombre"], $expira);
-	      }
-	    }
-	}
-}
-
-
- ?>
-
 
 
 <!DOCTYPE html>
@@ -79,30 +50,14 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
 
-                <li>
-                    <a href="services.php">Servicios</a>
-                </li>
+
                 <li>
                     <a href="iniciar.php">Iniciar Sesion</a>
                 </li>
                 <li>
                     <a href="registro.php">Registrarse</a>
                 </li>
-                <li>
-                    <a href="contact.php">Contacto</a>
-                </li>
 
-                <li>
-                    <a href="micuenta.php">Mi Cuenta</a>
-                </li>
-
-								<li>
-									<? if (isset($_SESSION["usuario"])) {
-										header( "location:perfil.php" );
-										exit();
-									}
-									?>
-								</li>
                       </ul>
                     </li>
                 </ul>
@@ -152,7 +107,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
               <h2 class="text-center login-title">Ingresa a Beer For' U</h2>
               <div class="account-wall">
 
-                <form action="iniciar.php" method="POST" enctype="multipart/form-data">
+                <form action="index.php" method="POST" enctype="multipart/form-data">
                   <?php if (!empty($errores)) { ?>
                     <div style="width:300px;background-color:red">
                       <ul>
@@ -164,8 +119,10 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                       </ul>
                     </div>
                   <?php } ?>
-                  <input type="text" class="form-control" placeholder="Email"  value="<?php echo $user; ?>"></input>
-                  <input type="password" class="form-control" placeholder="Contraseña" value= "<?php echo $pass ?>"></input>
+									<input id="user" type="text" name="usuario" class="form-control" id="f1" required data-validation-required-message="Ingrese su nombre de usuario."  >
+
+									<input type="password" name="contraseña" class="form-control" id="f2" required data-validation-required-message="Ingrese Contraseña." >
+
                   <button class="btn btn-lg btn-primary btn-block" id="submit" type="submit"  onClick="parent.location= 'index.php'"  value= "Enviar">
                       Ingresar</button>
 

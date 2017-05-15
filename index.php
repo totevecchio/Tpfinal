@@ -1,3 +1,38 @@
+<?php
+				$fp = fopen("usuarios.json","r");
+				$fs = filesize("usuarios.json");
+				$jstring = fread($fp,$fs);
+				$jarray = json_decode($jstring,true);
+
+					if (!empty($_POST['usuario'])){
+
+					} else{
+					header("location: iniciar.php");
+					}
+					if (!empty($_POST['contraseña'])){
+
+					} else{
+					header("location: iniciar.php");
+					}
+					if (isset($_POST['submit'])){
+
+
+						if($_POST['usuario']==$jarray["nombre"]) {
+							if ($_POST['contraseña']==$jarray["contraseña"]){
+							}
+							else{
+							header("location: iniciar.php");
+						}
+						} else{
+							header("location: iniciar.php");
+
+						}
+
+					}
+
+				?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,6 +101,22 @@
                 </li>
 
 
+                  <?php
+        					if(!empty($_POST)){
+        						$miArray= [];
+        						foreach ($_POST as $valor) {
+        						$miArray[]= $valor;
+        						}
+        						echo "<a  href=#><span style='margin-right: 1px;' class='glyphicon glyphicon-user'></span> Bienvenido ".$miArray[0]."</a>";
+        						echo "<div><a href='index.php'>Cerrar Sesion</div>";
+        					}  else{
+
+        						echo "<a  href='login.php'><span style='margin-right: 1px;' class='glyphicon glyphicon-user'></span> Iniciar Sesión</a>";
+
+        					}
+        					?>
+                </li>
+
                       </ul>
                     </li>
                 </ul>
@@ -89,7 +140,7 @@
             <div class="item active">
                 <div class="fill"  style="background-image:url('imagen/portscroll.png');"></div>
                 <div class="carousel-caption">
-                  
+
                 </div>
 
             </div>
@@ -126,32 +177,32 @@
                 <h2 class="page-header">Tipos de Cerveza</h2>
             </div>
             <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
+                <a href="portfolio-item.php">
                     <img class="img-responsive img-portfolio img-hover" src="imagen/blonde700x450.png" alt="">
                 </a>
             </div>
             <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
+                <a href="portfolio-item.php">
                     <img class="img-responsive img-portfolio img-hover" src="imagen/bock700x450.png" alt="">
                 </a>
             </div>
             <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
+                <a href="portfolio-item.php">
                     <img class="img-responsive img-portfolio img-hover" src="imagen/cream700x450.png" alt="">
                 </a>
             </div>
             <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
+                <a href="portfolio-item.php">
                     <img class="img-responsive img-portfolio img-hover" src="imagen/epa700x450.png" alt="">
                 </a>
             </div>
             <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
+                <a href="portfolio-item.php">
                     <img class="img-responsive img-portfolio img-hover" src="imagen/pilsener700x450.png" alt="">
                 </a>
             </div>
             <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
+                <a href="portfolio-item.php">
                     <img class="img-responsive img-portfolio img-hover" src="imagen/ipa700x450.png" alt="">
                 </a>
             </div>
@@ -165,32 +216,32 @@
 
                   </div>
                   <div class="col-md-4 col-sm-6">
-                      <a href="portfolio-item.html">
+                      <a href="portfolio-item.php">
                           <img class="img-responsive img-portfolio img-hover" src="imagen/pata1700x450.png" alt="">
                       </a>
                   </div>
                   <div class="col-md-4 col-sm-6">
-                      <a href="portfolio-item.html">
+                      <a href="portfolio-item.php">
                           <img class="img-responsive img-portfolio img-hover" src="imagen/pata2700x450.png" alt="">
                       </a>
                   </div>
                   <div class="col-md-4 col-sm-6">
-                      <a href="portfolio-item.html">
+                      <a href="portfolio-item.php">
                           <img class="img-responsive img-portfolio img-hover" src="imagen/estrella700x450.png" alt="">
                       </a>
                   </div>
                   <div class="col-md-4 col-sm-6">
-                      <a href="portfolio-item.html">
+                      <a href="portfolio-item.php">
                           <img class="img-responsive img-portfolio img-hover" src="imagen/stella700x450.png" alt="">
                       </a>
                   </div>
                   <div class="col-md-4 col-sm-6">
-                      <a href="portfolio-item.html">
+                      <a href="portfolio-item.php">
                           <img class="img-responsive img-portfolio img-hover" src="imagen/stella2700x450.png" alt="">
                       </a>
                   </div>
                   <div class="col-md-4 col-sm-6">
-                      <a href="portfolio-item.html">
+                      <a href="portfolio-item.php">
                           <img class="img-responsive img-portfolio img-hover" src="imagen/dosequis700x450.png" alt="">
                       </a>
                   </div>
@@ -200,32 +251,32 @@
                     <h2 class="page-header">Bares</h2>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
+                    <a href="portfolio-item.php">
                         <img class="img-responsive img-portfolio img-hover" src="imagen/antaress.png" alt="">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
+                    <a href="portfolio-item.php">
                         <img class="img-responsive img-portfolio img-hover" src="imagen/mintas.png" alt="">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
+                    <a href="portfolio-item.php">
                         <img class="img-responsive img-portfolio img-hover" src="imagen/antaresp.png" alt="">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
+                    <a href="portfolio-item.php">
                         <img class="img-responsive img-portfolio img-hover" src="imagen/point.png" alt="">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
+                    <a href="portfolio-item.php">
                         <img class="img-responsive img-portfolio img-hover" src="imagen/drum.png" alt="">
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
+                    <a href="portfolio-item.php">
                         <img class="img-responsive img-portfolio img-hover" src="imagen/hops.png" alt="">
                     </a>
                 </div>
