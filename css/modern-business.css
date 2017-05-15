@@ -23,6 +23,11 @@ body {
     opacity: 0.8;
 }
 
+.bienvenido{
+  margin-left: 500px;
+  margin-top: 300px;
+}
+
 .uno{
   margin: 0 auto;
 }
@@ -43,6 +48,7 @@ header.carousel .fill {
     height: 100%;
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
 }
 
 /* 404 Page Styles */

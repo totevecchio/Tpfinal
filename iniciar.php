@@ -1,3 +1,34 @@
+<?php
+
+session_start();
+
+if (isset($_POST['user']) && isset($_POST['pass'])) {
+	$usuarios = file_get_contents("usuarios.json");
+	$usuariosArray = explode(PHP_EOL, $usuarios);
+	array_pop($usuariosArray);
+
+	foreach ($usuariosArray as $key => $usuario) {
+	    $usuarioArray = json_decode($usuario, true);
+	    if ($_POST['user'] == $usuarioArray["usuario"]) {
+				$userok = $_POST['user'];
+				$hash = $usuarioArray["password"];
+	      if (password_verify($_POST['pass'], $hash)) {
+					$logueado = 'true';
+					$_SESSION["usuario"] = $usuarioArray["usuario"];
+					$_SESSION["nombre"] = $usuarioArray["nombre"];
+		//			$expira = time()+9993600;
+		//			setcookie("usuario", $usuarioArray["usuario"], $expira);
+		//			setcookie("nombre", $usuarioArray["nombre"], $expira);
+	      }
+	    }
+	}
+}
+
+
+ ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,28 +73,36 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Inicio</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-right">
-                  <li>
-                      <a href="about.html">Quienes Somos</a>
-                  </li>
-                  <li>
-                      <a href="services.html">Servicios</a>
-                  </li>
-                  <li>
-                      <a href="iniciar.html">Iniciar Sesion</a>
-                  </li>
-                  <li>
-                      <a href="registro.html">Registrarse</a>
-                  </li>
-                  <li>
-                      <a href="contact.html">Contacto</a>
-                  </li>
+                <a class="navbar-brand" href="index.php">Inicio</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
 
+                <li>
+                    <a href="services.php">Servicios</a>
+                </li>
+                <li>
+                    <a href="iniciar.php">Iniciar Sesion</a>
+                </li>
+                <li>
+                    <a href="registro.php">Registrarse</a>
+                </li>
+                <li>
+                    <a href="contact.php">Contacto</a>
+                </li>
 
+                <li>
+                    <a href="micuenta.php">Mi Cuenta</a>
+                </li>
+
+								<li>
+									<? if (isset($_SESSION["usuario"])) {
+										header( "location:perfil.php" );
+										exit();
+									}
+									?>
+								</li>
                       </ul>
                     </li>
                 </ul>
@@ -79,13 +118,13 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Registrarse
+                <h1 class="page-header">Iniciar Sesion
 
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a>
                     </li>
-                    <li class="active">Registrarse</li>
+                    <li class="active">Iniciar Sesion</li>
                 </ol>
             </div>
         </div>
@@ -110,17 +149,38 @@
                   <div class="container">
       <div class="row">
           <div class="col-sm-6 col-md-4 col-md-offset-4">
-              <h2 class="text-center login-title">Registrate a Beer For' U</h2>
+              <h2 class="text-center login-title">Ingresa a Beer For' U</h2>
               <div class="account-wall">
 
-                  <form class="form-signin">
-                  <input type="text" class="form-control" placeholder="Usuario" required autofocus>
-                  <input type="text" class="form-control" placeholder="Email" required autofocus>
-                  <input type="password" class="form-control" placeholder="Contraseña" required>
-                  <input type="password" class="form-control" placeholder="Comfirmar Contraseña" required>
-                  <button class="btn btn-lg btn-primary btn-block" type="submit">
-                      Registrarse Ahora</button>
+                <form action="iniciar.php" method="POST" enctype="multipart/form-data">
+                  <?php if (!empty($errores)) { ?>
+                    <div style="width:300px;background-color:red">
+                      <ul>
+                        <?php foreach ($errores as $error) { ?>
+                          <li>
+                            <?php echo $error ?>
+                          </li>
+                        <?php } ?>
+                      </ul>
+                    </div>
+                  <?php } ?>
+                  <input type="text" class="form-control" placeholder="Email"  value="<?php echo $user; ?>"></input>
+                  <input type="password" class="form-control" placeholder="Contraseña" value= "<?php echo $pass ?>"></input>
+                  <button class="btn btn-lg btn-primary btn-block" id="submit" type="submit"  onClick="parent.location= 'index.php'"  value= "Enviar">
+                      Ingresar</button>
 
+
+
+
+                  <label class="checkbox pull-left">
+                      <input type="checkbox" value="remember-me">
+                      Recordarme
+                  </label>
+                  <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                  </form>
+              </div>
+                <a href="recovery.html">Olvido su contraseña?</a>
+          </div>
       </div>
   </div>
 
@@ -154,6 +214,10 @@
     <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
     <script src="js/jqBootstrapValidation.js"></script>
     <script src="js/contact_me.js"></script>
+
+
+
+
 
 </body>
 

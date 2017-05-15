@@ -1,3 +1,37 @@
+<?php
+	require_once("funciones.php");
+	$pNombre = "";
+	$pApellido = "";
+	$pMail = "";
+	$pcontrasena="";
+	$conContrasena = "";
+	
+
+	if ($_POST)
+	{
+		$pNombre = $_POST["nombre"];
+		$pApellido = $_POST["apellido"];
+		$pMail = $_POST["mail"];
+		$pcontrasena = $_POST["pass"];
+		$conContrasena = $_POST["cpass"];
+		//Acá vengo si me enviaron el form
+
+		//Validar
+		$errores = validarUsuario($_POST);
+
+		// Si no hay errores....
+		if (empty($errores))
+		{
+			$usuario = crearUsuario($_POST);
+			// Guardar al usuario en un JSON
+			guardarUsuario($usuario);
+			// Reenviarlo a la felicidad
+			enviarAFelicidad();
+		}
+	}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,27 +76,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Inicio</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-right">
-                  <li>
-                      <a href="about.html">Quienes Somos</a>
-                  </li>
-                  <li>
-                      <a href="services.html">Servicios</a>
-                  </li>
-                  <li>
-                      <a href="iniciar.html">Iniciar Sesion</a>
-                  </li>
-                  <li>
-                      <a href="registro.html">Registrarse</a>
-                  </li>
-                  <li>
-                      <a href="contact.html">Contacto</a>
-                  </li>
+                <a class="navbar-brand" href="index.php">Inicio</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
 
+                <li>
+                    <a href="services.php">Servicios</a>
+                </li>
+                <li>
+                    <a href="iniciar.php">Iniciar Sesion</a>
+                </li>
+                <li>
+                    <a href="registro.php">Registrarse</a>
+                </li>
+                <li>
+                    <a href="contact.php">Contacto</a>
+                </li>
+
+                <li>
+                    <a href="micuenta.php">Mi Cuenta</a>
+                </li>
 
                       </ul>
                     </li>
@@ -79,13 +114,13 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Iniciar Sesion
+                <h1 class="page-header">Registrarse
 
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a>
                     </li>
-                    <li class="active">Iniciar Sesion</li>
+                    <li class="active">Registrarse</li>
                 </ol>
             </div>
         </div>
@@ -110,23 +145,49 @@
                   <div class="container">
       <div class="row">
           <div class="col-sm-6 col-md-4 col-md-offset-4">
-              <h2 class="text-center login-title">Ingresa a Beer For' U</h2>
+              <h2 class="text-center login-title">Registrate a Beer For' U</h2>
               <div class="account-wall">
 
-                  <form class="form-signin">
-                  <input type="text" class="form-control" placeholder="Email" required autofocus>
-                  <input type="password" class="form-control" placeholder="Contraseña" required>
-                  <button class="btn btn-lg btn-primary btn-block" type="submit">
-                      Ingresar</button>
-                  <label class="checkbox pull-left">
-                      <input type="checkbox" value="remember-me">
-                      Recordarme
-                  </label>
-                  <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
-                  </form>
-              </div>
-                <a href="recovery.html">Olvido su contraseña?</a>
-          </div>
+								<form action="registro.php" method="POST" enctype="multipart/form-data">
+									<?php if (!empty($errores)) { ?>
+										<div style="width:200px;background-color:yellow">
+											<ul>
+												<?php foreach ($errores as $error) { ?>
+													<li>
+														<?php echo $error ?>
+													</li>
+												<?php } ?>
+											</ul>
+										</div>
+									<?php } ?>
+
+
+
+											<div>
+
+												<input id="nombre" class="form-control" placeholder="Nombre" type="text" name="nombre" value="<?php echo $pNombre; ?>"></input>
+											</div>
+											<div>
+
+												<input id="apellido" class="form-control" placeholder="Apellido" type="text" name="apellido" value="<?php echo $pApellido; ?>"></input>
+											</div>
+											<div>
+
+												<input id="mail" class="form-control" placeholder="Email" type="text" name="mail" value="<?php echo $pMail; ?>"></input>
+											</div>
+											<div>
+
+												<input id="pass" class="form-control" placeholder="Contraseña" type="password" name="pass"  value= "<?php echo $pcontrasena; ?>"></input>
+											</div>
+											<div>
+
+												<input id="cpass"	class="form-control" placeholder="Comfirmar Contraseña" type="password" name="cpass" value= "<?php echo $conContrasena; ?>"></input>
+											</div>
+
+											<div>
+												<input id="submit" class="btn btn-lg btn-primary btn-block" type="submit" name="submit" value="Registrae Ahora"></input>
+											</div>
+										</form>
       </div>
   </div>
 

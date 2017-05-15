@@ -42,26 +42,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                  <a class="navbar-brand" href="index.html">Inicio</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-right">
-                  <li>
-                      <a href="about.html">Quienes Somos</a>
-                  </li>
-                  <li>
-                      <a href="services.html">Servicios</a>
-                  </li>
-                  <li>
-                      <a href="iniciar.html">Iniciar Sesion</a>
-                  </li>
-                  <li>
-                      <a href="registro.html">Registrarse</a>
-                  </li>
-                  <li>
-                      <a href="contact.html">Contacto</a>
-                  </li>
+                <a class="navbar-brand" href="index.php">Inicio</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+
+                <li>
+                    <a href="services.php">Servicios</a>
+                </li>
+                <li>
+                    <a href="iniciar.php">Iniciar Sesion</a>
+                </li>
+                <li>
+                    <a href="registro.php">Registrarse</a>
+                </li>
+                <li>
+                    <a href="contact.php">Contacto</a>
+                </li>
+
+                <li>
+                    <a href="micuenta.php">Mi Cuenta</a>
+                </li>
 
 
                       </ul>
@@ -84,7 +86,7 @@
                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a>
                     </li>
-                    <li class="active">Contact</li>
+                    <li class="active">Contacto</li>
                 </ol>
             </div>
         </div>
